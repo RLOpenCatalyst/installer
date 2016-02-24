@@ -65,6 +65,7 @@ then
         sudo mv node-v4.2.2-linux-x64 node
         sudo ln -s /opt/node/bin/node /usr/bin/node
         sudo ln -s /opt/node/bin/npm /usr/bin/npm
+        sudo ln -s /opt/node/bin/forever /usr/bin/forever
         sudo npm install -g npm@3.4.0
         sudo npm install -g forever
         sudo npm install -g kerberos
