@@ -31,8 +31,8 @@ vmware() {
 	sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	sudo curl -sSL https://get.rvm.io | bash
 	sudo bash --login
-	sudo rvm install 2.1.0
-	sudo rvm use 2.1.0 --default
+	sudo /usr/local/rvm/bin/rvm install 2.1.0
+	sudo /usr/local/rvm/bin/rvm use 2.1.0 --default
 	sudo git clone https://github.com/RLOpenCatalyst/vmware /opt/vmware
 	cd /opt/vmware
 	sudo gem install bundler
@@ -61,10 +61,10 @@ then
         #Install the Nodejs
         cd /opt
         wget https://nodejs.org/dist/v4.2.2/node-v4.2.2-linux-x64.tar.gz
-        tar zxvf node-v4.2.2-linux-x64.tar.gz
-        mv node-v4.2.2-linux-x64 node
-        ln -s /opt/node/bin/node /usr/bin/node
-        ln -s /opt/node/bin/npm /usr/bin/npm
+        sudo tar zxvf node-v4.2.2-linux-x64.tar.gz
+        sudo mv node-v4.2.2-linux-x64 node
+        sudo ln -s /opt/node/bin/node /usr/bin/node
+        sudo ln -s /opt/node/bin/npm /usr/bin/npm
         sudo npm install -g npm@3.4.0
         sudo npm install -g forever
         sudo npm install -g kerberos
