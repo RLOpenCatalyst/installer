@@ -84,6 +84,7 @@ then
         catalystdeploy
 	puppet
 	vmware
+	echo "Installation of Catalyst is Completed..please login to http://<vagrantip>/<hostip>:vagrantport/hostport"
 fi
 
 if [ "$OS" == "centos" ] || [ "$OS" == "redhat" ]
