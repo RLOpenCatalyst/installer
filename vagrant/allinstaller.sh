@@ -3,7 +3,7 @@
 #Get the value from the Operating System
 OS=$(awk '/DISTRIB_ID=/' /etc/*-release | sed 's/DISTRIB_ID=//' | tr '[:upper:]' '[:lower:]')
 PWD=$(pwd)
-PWD1=$(realpath ..)
+
 
 if [ -z "$OS" ];
 then
@@ -17,12 +17,7 @@ catalystdeploy()
     sudo git clone https://github.com/RLOpenCatalyst/core.git /opt/core
     sudo mv /opt/core /opt/rlcatalyst
     cd /opt/rlcatalyst/server
-    if [ -d "/opt/rlcatalyst/server/node_modules"]
-    then
-      rm -rf /opt/rlcatalyst/server/node_modules
-    else
-      sudo npm install
-    fi
+    sudo npm install
     sudo node install --seed-data
     sudo forever start app.js
 }
@@ -35,6 +30,7 @@ vmware() {
 	cd ~
 	sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	sudo curl -sSL https://get.rvm.io | bash
+	sudo bash --login
 	sudo rvm install 2.1.0
 	sudo rvm use 2.1.0 --default
 	sudo git clone https://github.com/RLOpenCatalyst/vmware /opt/vmware
@@ -42,7 +38,7 @@ vmware() {
 	sudo gem install bundler
 	sudo bundle
 	sudo chmod +x startup.sh
-	sh startup.sh
+	/bin/bash startup.sh
 }
 
 if [ "$OS" == "ubuntu" ] || [ "$OS" == "debian" ]
@@ -63,19 +59,16 @@ then
         sudo apt-get install -y g++ make libkrb5-dev curl git
 
         #Install the Nodejs
-        node1=$(dpkg-query -l | grep nodejs | awk '{print $2}')
-        if [ "$node1" == "nodejs" ]
-        then
-                echo "nodejs is already installed"
-        else
-                curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-                sudo apt-get update
-                sudo apt-get install -y nodejs
-                sudo npm install npm -g
-                sudo npm install -g forever
-                sudo npm install -g kerberos
-        fi
-
+        cd /opt
+        wget https://nodejs.org/dist/v4.2.2/node-v4.2.2-linux-x64.tar.gz
+        tar zxvf node-v4.2.2-linux-x64.tar.gz
+        mv node-v4.2.2-linux-x64 node
+        ln -s /opt/node/bin/node /usr/bin/node
+        ln -s /opt/node/bin/npm /usr/bin/npm
+        sudo npm install -g npm@3.4.0
+        sudo npm install -g forever
+        sudo npm install -g kerberos
+        
 	#install chef-client
         chef1=$(dpkg-query -l | grep chef | awk '{print $2}'|head -1)
         if [ "$chef1" == "chef"]
@@ -119,11 +112,15 @@ EOF
     sudo yum install -y git gcc-c++ gcc-g++
 
     #Install the Node, npm and npm modules
-    sudo rpm -Uvh https://rpm.nodesource.com/pub_4.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
-    sudo yum install -y nodejs
-    sudo npm install -y npm -g
-    sudo npm install -g forever
-    sudo npm install -g kerberos
+    	cd /opt
+        wget https://nodejs.org/dist/v4.2.2/node-v4.2.2-linux-x64.tar.gz
+        tar zxvf node-v4.2.2-linux-x64.tar.gz
+        mv node-v4.2.2-linux-x64 node
+        ln -s /opt/node/bin/node /usr/bin/node
+        ln -s /opt/node/bin/npm /usr/bin/npm
+        sudo npm install -g npm@3.4.0
+        sudo npm install -g forever
+        sudo npm install -g kerberos
 
     #Install the Chef-Client
     sudo curl -L https://www.opscode.com/chef/install.sh | sudo bash
