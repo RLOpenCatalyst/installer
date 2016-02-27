@@ -65,7 +65,7 @@
 	"chefDetail": {
 		"dockerreponame": "rldocker",
 		"configname": "PhoenixChef",
-		"chefServerURL": "https://api.opscode.com/organizations/phoenix",
+		"chefServerURL": "https://abc/organizations/phoenix",
 		"chefserverloginname": "catadmin",
 		"userpemfile": "catadmin.pem",
 		"validatorpemfile": "phoenix-validator.pem",
