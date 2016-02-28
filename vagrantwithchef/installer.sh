@@ -56,8 +56,10 @@ vmware() {
 #       sudo bash --login
         sudo source /usr/local/rvm/scripts/rvm
         sudo /usr/local/rvm/bin/rvm install 2.1.0
+        sudo ln -s  /usr/local/rvm/rubies/ruby-2.1.0/bin/ruby /usr/bin/ruby
+        /usr/local/rvm/bin/rvm reload
         sudo /usr/local/rvm/bin/rvm use 2.1.0 --default
-        ln -s /usr/local/rvm/rubies/ruby-2.1.0/include/ruby-2.1.0/ /usr/include/ruby
+#        ln -s /usr/local/rvm/rubies/ruby-2.1.0/include/ruby-2.1.0/ /usr/include/ruby
         sudo git clone https://github.com/RLOpenCatalyst/vmware /opt/vmware
         cd /opt/vmware
         sudo /usr/local/rvm/rubies/ruby-2.1.0/bin/gem install bundler
