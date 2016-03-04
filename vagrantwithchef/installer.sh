@@ -18,12 +18,12 @@ seeddataloader() {
                 echo "$ip1      $hostname1" >> /etc/hosts
                 /etc/init.d/networking restart
 
-        sudo sed -i "s/abc/$hostname1/g" /opt/installer/vagrantwithchef/seeddata/EvalSetup.json
-                sudo cp /opt/catadmin.pem /opt/installer/vagrantwithchef/seeddata/Newfiles/
-                sudo cp /opt/phoenix-validator.pem /opt/installer/vagrantwithchef/seeddata/Newfiles/
-                cd /opt/installer/vagrantwithchef/seeddata/
+        sudo sed -i "s/abc/$hostname1/g" /opt/installer/seeddata/EvalSetup.json
+                sudo cp /opt/catadmin.pem /opt/installer/seeddata/Newfiles/
+                sudo cp /opt/phoenix-validator.pem /opt/installer/seeddata/Newfiles/
+                cd /opt/installer/seeddata/
                 npm install
-        /usr/bin/node /opt/installer/vagrantwithchef/seeddata/seedData.js  /opt/installer/vagrantwithchef/seeddata/EvalSetup.json > /tmp/seeddata.log
+        /usr/bin/node /opt/installer/seeddata/seedData.js  /opt/installer/seeddata/EvalSetup.json > /tmp/seeddata.log
 }
 
 chefserver() {
