@@ -1,5 +1,5 @@
 {
-	"catalystURL": "http://localhost:3001/",
+	"catalystURL": "http://abc:3001/",
 	"chefrepoPath": "/opt/installer/seeddata/Newfiles",
 	"cheffolderpath": "/opensource/.chef/",
 	"orgname": "Phoenix",
