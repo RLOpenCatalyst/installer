@@ -23,7 +23,6 @@ seeddataloader() {
                 sudo cp /opt/phoenix-validator.pem /opt/installer/vagrantwithchef/seeddata/Newfiles/
                 cd /opt/installer/vagrantwithchef/seeddata/
                 npm install
-                cd ~
         /usr/bin/node /opt/installer/vagrantwithchef/seeddata/seedData.js  /opt/installer/vagrantwithchef/seeddata/EvalSetup.json > /tmp/seeddata.log
 }
 
