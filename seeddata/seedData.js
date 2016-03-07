@@ -825,7 +825,7 @@
     })
   }
 
-  function trackInsertData(trackType, trackJson, fileData, callback) {
+  /*function trackInsertData(trackType, trackJson, fileData, callback) {
     console.log("START::insertTrackseedData");
     var newURL = "http://localhost:3001/track";
     var trackData = {
@@ -850,7 +850,7 @@
       callback(null, reqBody);
       return;
     });
-  }
+  }*/
 
   function servicesDbData(orgData, serviceName, commandName, commandType, chefData, serviceCookbook, Os, command, fileData, callback) {
     console.log("START ::: servicesDbData");

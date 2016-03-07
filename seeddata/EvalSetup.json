@@ -70,8 +70,7 @@
 		"userpemfile": "opensource.pem",
 		"validatorpemfile": "opensource-validator.pem",
 		"kniferbfile": "knife.rb"
-	}
-	}],
+	},
 
 	"servicesdetail": [{
 		"servicename": ["apache"],
