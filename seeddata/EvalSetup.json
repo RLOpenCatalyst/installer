@@ -70,44 +70,22 @@
 		"userpemfile": "opensource.pem",
 		"validatorpemfile": "opensource-validator.pem",
 		"kniferbfile": "knife.rb"
-	},
-
-
-	"trackDetail": [{
-		"type": "Provider",
-		"itemUrls": [{
-			"name": "Provider Dashboard",
-			"url": "https://localhost:3001/public/Dashboard.html",
-			"description": "Provider Dashboard",
-			"childItem": []
-		}, {
-			"name": "AWS Summary Dashboard",
-			"url": "https://localhost:3001/public/dashing.html",
-			"description": "AWS Summary Dashboard",
-			"childItem": []
-		}]
+	}
 	}],
 
 	"servicesdetail": [{
 		"servicename": ["apache"],
-		"commandname": ["httpd"],
+		"commandname": ["test1"],
 		"commandtype": "Chef Cookbook/Recipe",
 		"servicecookbook": ["service_apache"],
 		"operatingsystem": "linux",
 		"command": [""]
 	}, {
 		"servicename": ["tomcat"],
-		"commandname": ["start"],
+		"commandname": ["test2"],
 		"commandtype": "Service Command",
 		"servicecookbook": [""],
 		"operatingsystem": "linux",
-		"command": ["service_apache"]
-	}, {
-		"servicename": ["test3"],
-		"commandname": ["test3"],
-		"commandtype": "Service Command",
-		"servicecookbook": [""],
-		"operatingsystem": "windows",
 		"command": ["service_apache"]
 	}]
 }
