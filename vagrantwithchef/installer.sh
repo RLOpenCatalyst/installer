@@ -46,6 +46,7 @@ vmware() {
         cd /opt/vmware
         sudo /usr/local/rvm/rubies/ruby-2.1.0/bin/gem install bundler
         sudo /opt/vmware/bin/bundle
+	sudo ln -s /usr/local/rvm/rubies/ruby-2.1.0/bin/rails /usr/bin/rails
         sudo chmod +x startup.sh
         sudo /bin/bash startup.sh > /dev/null 2&>1
 }
@@ -97,52 +98,4 @@ then
         vmware
         seeddataloader
         echo "Installation of Catalyst has been Completed. please login to http://<vagrantip>/<hostip>:vagrantport/hostport"
-fi
-
-if [ "$OS" == "centos" ] || [ "$OS" == "redhat" ]
-then
-    sudo cat << EOF >> /etc/yum.repos.d/mongodb.repo
-[MongoDB]
-name=MongoDB Repository
-baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
-gpgcheck=0
-enabled=1
-EOF
-
-    #cp mongodb.repo /etc/yum.repos.d/mongodb.repo
-    sudo yum update -y
-    sudo yum install -y mongodb-org
-
-    if [ -d "/data/db" ]
-    then
-        echo "Directory is already available"
-    else
-        sudo mkdir -p /data/db
-    fi
-
-    sudo service mongod start
-
-    #Install Git and dependant packages
-    sudo yum install -y git gcc-c++ gcc-g++
-
-    #Install the Node, npm and npm modules
-        cd /opt
-        wget https://nodejs.org/dist/v4.2.2/node-v4.2.2-linux-x64.tar.gz
-        tar zxvf node-v4.2.2-linux-x64.tar.gz
-        mv node-v4.2.2-linux-x64 node
-        ln -s /opt/node/bin/node /usr/bin/node
-        ln -s /opt/node/bin/npm /usr/bin/npm
-        sudo npm install -g npm@3.4.0
-        sudo npm install -g forever
-        sudo npm install -g kerberos
-
-    #Install the Chef-Client
-    sudo curl -L https://www.opscode.com/chef/install.sh | sudo bash
-
-    #Deploy The Catalyst
-    catalystdeploy
-    puppet
-    #vmware
-    seeddataloader
-    echo "Installation of Catalyst has been Completed. please login to http://<vagrantip>/<hostip>:vagrantport/hostport"
 fi
