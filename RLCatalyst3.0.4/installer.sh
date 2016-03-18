@@ -73,8 +73,21 @@ chefserver() {
 	sudo cp /opt/catadmin.pem /vagrant/seeddata/Newfiles/catadmin.pem
 	sudo cp /opt/phoenix-validator.pem /vagrant/seeddata/Newfiles/phoenix-validator.pem
 	cd /vagrant/seeddata
+	sudp npm install
 	sudo node seedData.js EvalSetup.json
+	sudo /opt/chef/embedded/bin/gem install knife-windows
 }
+
+cookbookupload() {
+
+        cd /opt/rlcatalyst/server/catdata/catalyst/chef-repos/46d1da9a-d927-41dc-8e9e-7e926d927537/catadmin/.chef/
+        sudo git clone https://github.com/RLOpenCatalyst/automationlibrary.git
+        sudo /opt/chef/embedded/bin/gem install berkshelf
+        sudo ln -s /opt/chef/embedded/bin/berks /usr/bin/berks
+        cd automationlibrary
+        sudo ruby cookbooks_upload.rb
+}
+
 
 vmware() {
         cd ~
@@ -138,9 +151,11 @@ then
         puppet
         vmware
 	chefserver
+	cookbookupload
         #seeddataloader
 	java
 	nexus
 	jenkins
+        sudo service nexus start	
         echo "Installation of Catalyst has been Completed. please login to http://<vagrantip>/<hostip>:vagrantport/hostport"
 fi
