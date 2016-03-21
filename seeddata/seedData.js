@@ -165,7 +165,7 @@
                   });
                 };
               };
-              for (var i = 0; i < fileData.trackDetail.length; i++) {
+              /*for (var i = 0; i < fileData.trackDetail.length; i++) {
                 var trackType = fileData.trackDetail[i].type;
                 var trackJson = fileData.trackDetail[i].itemUrls;
                 for (var j = 0; j < fileData.trackDetail[i].itemUrls.length; j++) {
@@ -215,7 +215,7 @@
                     })
                   })(j, trackType, trackJson, trackName, i);
                 }
-              }
+              }*/
               for (var i = 0; i < fileData.teams.length; i++) {
                 var teamName = fileData.teams[i].teamname;
                 var teamUser = fileData.teams[i];
