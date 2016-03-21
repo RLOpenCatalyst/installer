@@ -1,7 +1,7 @@
 {
 	"catalystURL": "http://abc:3001/",
 	"chefrepoPath": "/opt/installer/seeddata/Newfiles",
-	"cheffolderpath": "/opensource/.chef/",
+	"cheffolderpath": "/catadmin/.chef/",
 	"orgname": "Phoenix",
 	"productgroupname": "PhoenixBG",
 	"project": "PhoenixApp",
@@ -65,10 +65,10 @@
 	"chefDetail": {
 		"dockerreponame": "rldocker",
 		"configname": "PhoenixChef",
-		"chefServerURL": "https://chefservercat.cloudapp.net/organizations/opensource",
-		"chefserverloginname": "opensource",
-		"userpemfile": "opensource.pem",
-		"validatorpemfile": "opensource-validator.pem",
+		"chefServerURL": "https://abc/organizations/phoenix",
+		"chefserverloginname": "catadmin",
+		"userpemfile": "catadmin.pem",
+		"validatorpemfile": "phoenix-validator.pem",
 		"kniferbfile": "knife.rb"
 	},
 
