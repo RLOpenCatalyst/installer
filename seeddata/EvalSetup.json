@@ -72,21 +72,6 @@
 		"kniferbfile": "knife.rb"
 	},
 	
-	 "trackDetail": [{
-                "type": "Provider",
-                "itemUrls": [{
-                        "name": "Provider Dashboard",
-                        "url": "https://localhost:3001/public/Dashboard.html",
-                        "description": "Provider Dashboard",
-                        "childItem": []
-                }, {
-                        "name": "AWS Summary Dashboard",
-                        "url": "https://localhost:3001/public/dashing.html",
-                        "description": "AWS Summary Dashboard",
-                        "childItem": []
-                }]
-        }],
-	
 	"servicesdetail": [{
 		"servicename": ["apache"],
 		"commandname": ["test1"],
