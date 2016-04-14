@@ -110,6 +110,7 @@ then
                 echo "Chef-Client has been installed"
         else
                 sudo curl -L https://www.opscode.com/chef/install.sh | sudo bash
+                sudo /opt/chef/embedded/bin/gem install knife-windows
         fi
 
 

@@ -1,0 +1,9 @@
+---
+applications:
+- name: seeddataloader
+  memory: 512M
+  instances: 1
+  host: rlindia
+  domain: rlindia.io
+  services:
+   - instance_mongodb_node
