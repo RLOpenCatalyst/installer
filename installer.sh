@@ -41,7 +41,7 @@ catalystdeploy()
     cd /opt/rlcatalyst/server
     sudo npm install
     sudo node install --seed-data
-    sudo forever start app.js
+    sudo forever start app/app.js
 }
 
 puppet() {
