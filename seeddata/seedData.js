@@ -12,8 +12,8 @@
     jar: true
   });
 
-
-  fs.readFile("EvalSetup.json", 'utf8', function(err, data) {
+  console.log(__dirname);
+  fs.readFile(__dirname + "/EvalSetup.json", 'utf8', function(err, data) {
     fileData = JSON.parse(data);
     var urlstring = fileData.catalystURL + "auth/signin";
     var parsedurl = url.parse(urlstring);
@@ -136,7 +136,6 @@
                         } else {
                           var dockerrepoPath = "";
                         }
-
                         tempDbData(orgData, chefData, tempName, tempType, cookbookIcon, cookbook, tempfiles, tempfilesPath, cookbookImagepath, dockerrepoPath, fileData, function(err, tempData) {
                           if (err) {
                             console.log("Error : in tempDbData", err);
@@ -165,57 +164,6 @@
                   });
                 };
               };
-              /*for (var i = 0; i < fileData.trackDetail.length; i++) {
-                var trackType = fileData.trackDetail[i].type;
-                var trackJson = fileData.trackDetail[i].itemUrls;
-                for (var j = 0; j < fileData.trackDetail[i].itemUrls.length; j++) {
-                  var trackName = fileData.trackDetail[i].itemUrls[j].name;
-                  (function(j, trackType, trackJson, trackName, i) {
-                    trackDbData(trackType, trackName, trackJson, fileData, function(err, trackData) {
-                      if (err) {
-                        console.log("Error : in trackDbData", err);
-                      }
-                      if (trackData === undefined) {
-                        if (i === fileData.trackDetail.length - 1) {
-                          trackInsertData(trackType, trackJson, fileData, function(err, data) {
-                            if (err) {
-                              console.log(err);
-                            }
-                            console.log("Inserted track Data", JSON.stringify(data));
-                          })
-                        }
-                      } else {
-                        if (i === fileData.trackDetail.length - 1) {
-                          for (var k = 0; k < trackArr.length; k++) {
-                            var nameValue = trackArr[k].itemUrls[k].name;
-                            removeInDb("tracks", {
-                              type: trackType,
-                            }, {
-                              $pull: {
-                                itemUrls: {
-                                  name: nameValue
-                                }
-                              }
-                            }, function(err, removedData) {
-                              if (err) {
-                                console.log(err);
-                              }
-                              if (k === trackArr.length - 1) {
-                                trackInsertData(trackType, trackJson, fileData, function(err, data) {
-                                  if (err) {
-                                    console.log(err);
-                                  }
-                                  console.log("Inserted track Data", JSON.stringify(data));
-                                })
-                              }
-                            })
-                          }
-                        }
-                      }
-                    })
-                  })(j, trackType, trackJson, trackName, i);
-                }
-              }*/
               for (var i = 0; i < fileData.teams.length; i++) {
                 var teamName = fileData.teams[i].teamname;
                 var teamUser = fileData.teams[i];
@@ -602,6 +550,8 @@
       form.append('templatescookbooks', cookbook);
       form.append('orgname', orgData.orgname);
       form.append('template_filename', tempfiles);
+      form.append('dockerreponame', '');
+      form.append('dockercontainerpathstitle', '');
       form.append('dockercontainerpaths', dockerrepoPath);
       form.append('templatesicon_filename', cookbookIcon);
       form.append('templatesicon', fs.createReadStream(cookbookImagepath + '/' + cookbookIcon), {
@@ -825,7 +775,7 @@
     })
   }
 
-  /*function trackInsertData(trackType, trackJson, fileData, callback) {
+  function trackInsertData(trackType, trackJson, fileData, callback) {
     console.log("START::insertTrackseedData");
     var newURL = "http://localhost:3001/track";
     var trackData = {
@@ -850,7 +800,7 @@
       callback(null, reqBody);
       return;
     });
-  }*/
+  }
 
   function servicesDbData(orgData, serviceName, commandName, commandType, chefData, serviceCookbook, Os, command, fileData, callback) {
     console.log("START ::: servicesDbData");

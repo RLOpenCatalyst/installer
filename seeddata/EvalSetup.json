@@ -1,7 +1,7 @@
-{
-	"catalystURL": "http://abc:3001/",
-	"chefrepoPath": "/opt/installer/seeddata/Newfiles",
-	"cheffolderpath": "/catadmin/.chef/",
+	{
+	"catalystURL": "http://localhost:3001/",
+	"chefrepoPath": "/home/rle0249/SeedDataLoader/Newfiles",
+	"cheffolderpath": "/pcjoshi9/.chef/",
 	"orgname": "Phoenix",
 	"productgroupname": "PhoenixBG",
 	"project": "PhoenixApp",
@@ -26,25 +26,25 @@
 	"tempJson": [{
 		"tempType": "CloudFormation",
 		"name": ["CFT_JavaStack", "CFT_CatalystStack", "CFT_MicrosoftStack", "CFT_ThreeTierApp", "CFT_cft2"],
-		"cookbookImagepath": "/opt/installer/seeddata/images/app-store-icons",
+		"cookbookImagepath": "/home/rle0249/SeedDataLoader/images/app-store-icons",
 		"cookbooks": [],
 		"cookbookicon": ["cft.png", "cft.png", "cft.png", "cft.png", "cft.png"],
-		"tempFilespath": "/opt/installer/seeddata/Newfiles",
+		"tempFilespath": "/home/rle0249/SeedDataLoader/Newfiles",
 		"tempfiles": ["JavaStack.template", "CatalystStack.template", "MicrosoftStack.template", "ThreeTierApp.template", "cft2.template"],
 		"dockercontainerpaths" : []
 	}, {
 		"tempType": "ARMTemplate",
 		"name": ["ARM_for2VM", "ARM_3TierLb", "ARM_ubuntu", "ARM_SingleVM", "ARM_StorageAccount"],
-		"cookbookImagepath": "/opt/installer/seeddata/images/app-store-icons",
+		"cookbookImagepath": "/home/rle0249/SeedDataLoader/images/app-store-icons",
 		"cookbooks": [],
 		"cookbookicon": ["arm.png", "arm.png", "arm.png", "arm.png", "arm.png"],
-		"tempFilespath": "/opt/installer/seeddata/Newfiles",
+		"tempFilespath": "/home/rle0249/SeedDataLoader/Newfiles",
 		"tempfiles": ["ARM-For-2-VM.json", "3-Tier-LB.json", "apache-ubuntu.json", "azure-singlevm.json", "StorageAccount.json"],
 		"dockercontainerpaths" : []
 	}, {
 		"tempType": "SoftwareStack",
 		"name": ["Apache_stack", "Tomcat_stack", "IIS Server_stack", "JBoss_stack", "Mongodb_stack", "Nodejs_stack", "Postgresql_stack", "Java_stack"],
-		"cookbookImagepath": "/opt/installer/seeddata/images/app-store-icons",
+		"cookbookImagepath": "/home/rle0249/SeedDataLoader/images/app-store-icons",
 		"cookbooks": ["recipe[apache2]", "recipe[tomcat-all]", "recipe[iis_test]", "recipe[jboss7_rl]", "recipe[mongodb3]", "recipe[nodejs]", "recipe[postgresql]", "recipe[java8]"],
 		"cookbookicon": ["apache.png", "tomcat.jpeg", "windows.png", "jboss.png", "mongo.png", "nodejs.png", "mysql-icon.jpg", "java.jpg"],
 		"tempFilespath": null,
@@ -53,7 +53,7 @@
 	}, {
 		"tempType": "Docker",
 		"name": ["Docker_ubuntu", "Docker_centos", "Docker_nginx", "Docker_redis", "Docker_node", "Docker_postgres", "Docker_mysql", "Docker_mongo","Docker_debian","Docker_jenkins","Docker_Wordpress"],
-		"cookbookImagepath": "/opt/installer/seeddata/images/app-store-icons",
+		"cookbookImagepath": "/home/rle0249/SeedDataLoader/images/app-store-icons",
 		"cookbooks": [],
 		"cookbookicon": ["Ubuntu.png", "centos.png", "nginx.png", "redis.png", "nodejs.png", "postgresql.png", "mysql-icon.jpg", "mongo.png","debian.jpg","jenkins.png","wordpress.png"],
 		"tempFilespath": null,
@@ -65,26 +65,35 @@
 	"chefDetail": {
 		"dockerreponame": "rldocker",
 		"configname": "PhoenixChef",
-		"chefServerURL": "https://abc/organizations/phoenix",
-		"chefserverloginname": "catadmin",
-		"userpemfile": "catadmin.pem",
-		"validatorpemfile": "phoenix-validator.pem",
+		"chefServerURL": "https://chefservercat.cloudapp.net/organizations/opensource",
+		"chefserverloginname": "opensource",
+		"userpemfile": "pcjoshi9.pem",
+		"validatorpemfile": "cat1-validator.pem",
 		"kniferbfile": "knife.rb"
 	},
+
+
 	
 	"servicesdetail": [{
-		"servicename": ["apache"],
+		"servicename": ["test1"],
 		"commandname": ["test1"],
 		"commandtype": "Chef Cookbook/Recipe",
 		"servicecookbook": ["service_apache"],
 		"operatingsystem": "linux",
 		"command": [""]
 	}, {
-		"servicename": ["tomcat"],
+		"servicename": ["test2"],
 		"commandname": ["test2"],
 		"commandtype": "Service Command",
 		"servicecookbook": [""],
 		"operatingsystem": "linux",
+		"command": ["service_apache"]
+	}, {
+		"servicename": ["test3"],
+		"commandname": ["test3"],
+		"commandtype": "Service Command",
+		"servicecookbook": [""],
+		"operatingsystem": "windows",
 		"command": ["service_apache"]
 	}]
 }
