@@ -21,24 +21,28 @@ catalystdeploy()
     cd ~
     if [ $UID -eq 0 ];
     then
-        git clone https://github.com/RLOpenCatalyst/core.git
+        #git clone https://github.com/RLOpenCatalyst/core.git
+	git clone https://github.com/RLIndia/core.git
         mv core rlcatalyst
         cd rlcatalyst/client/cat3
         npm install --production
         npm run-script build-prod
         cd ../../server
         npm install
-        node install --seed-data 
+	echo "install --seed-data --db-host "$1
+        node install --seed-data  --db-host $1
         forever start app/app.js
     else
-        sudo git clone https://github.com/RLOpenCatalyst/core.git
+        #sudo git clone https://github.com/RLOpenCatalyst/core.git
+	sudo git clone https://github.com/RLIndia/core.git
         sudo mv core rlcatalyst
 	    cd rlcatalyst/client/cat3
         sudo npm install --production
         sudo npm run-script build-prod
         cd ../../server
         sudo npm install
-        sudo node install --seed-data 
+	echo "install --seed-data --db-host "$1
+        sudo node install --seed-data --db-host $1
         sudo forever start app/app.js
     fi
 }
@@ -125,7 +129,7 @@ then
                 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
                 echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
                 sudo apt-get update
-                sudo apt-get install -y mongodb-org
+        #        sudo apt-get install -y mongodb-org
         fi
 
         #Install dependency packages
