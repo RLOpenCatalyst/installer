@@ -50,7 +50,8 @@ vmware() {
      sudo /usr/local/rvm/rubies/ruby-2.1.4/bin/gem install bundler
      sudo /opt/vmware/bin/bundle
      sudo chmod +x startup.sh
-     /bin/bash startup.sh
+     sudo sed -i 's|rails|/opt/vmware/bin/rails|g' startup.sh
+     sudo /bin/bash startup.sh
      sudo ln -s /usr/local/rvm/rubies/ruby-2.1.4/bin/gem /usr/bin/gem
      sudo gem install sass
      sudo ln -s /usr/local/rvm/rubies/ruby-2.1.4/bin/sass /usr/bin/sass
