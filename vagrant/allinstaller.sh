@@ -34,18 +34,19 @@ vmware() {
 	    sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
             sudo curl -sSL https://get.rvm.io | bash
             sudo source /home/ubuntu/.rvm/bin/rvm
-            sudo /home/$USER/.rvm/bin/rvm install 2.1.4
-            sudo ln -s  /home/$USER/.rvm/rubies/ruby-2.1.4/bin/ruby /usr/bin/ruby
-            sudo /home/$USER/.rvm/bin/rvm use 2.1.4 --default
+            sudo /usr/local/rvm/bin/rvm install 2.1.4
+            sudo ln -s  /usr/local/rvm/rubies/ruby-2.1.4/bin/ruby /usr/bin/ruby
+            sudo /usr/local/rvm/bin/rvm use 2.1.4 --default
             sudo git clone https://github.com/RLOpenCatalyst/vmware /opt/vmware
             cd /opt/vmware
-            sudo /home/$USER/.rvm/rubies/ruby-2.1.4/bin/gem install bundler
+            sudo /usr/local/rvm/rubies/ruby-2.1.4/bin/gem install bundler
             sudo /opt/vmware/bin/bundle
             sudo chmod +x startup.sh
-            /bin/bash startup.sh
-	    sudo ln -s /home/$USER/.rvm/rubies/ruby-2.1.4/bin/gem /usr/bin/gem
+            sudo sed -i 's|rails|/opt/vmware/bin/rails|g' startup.sh
+            sudo /bin/bash startup.sh
+	    sudo ln -s /usr/local/rvm/rubies/ruby-2.1.4/bin/gem /usr/bin/gem
             sudo gem install sass
-            sudo ln -s /home/$USER/.rvm/rubies/ruby-2.1.4/bin/sass /usr/bin/sass
+            sudo ln -s /usr/local/rvm/rubies/ruby-2.1.4/bin/sass /usr/bin/sass
             sudo sed -i 's/ruby_executable_hooks/ruby/g' /usr/bin/sass
 }
 
@@ -103,49 +104,3 @@ then
 	echo "Installation of Catalyst is Completed..please login to http://<vagrantip>/<hostip>:vagrantport/hostport"
 fi
 
-if [ "$OS" == "centos" ] || [ "$OS" == "redhat" ]
-then
-    sudo cat << EOF >> /etc/yum.repos.d/mongodb.repo
-[MongoDB]
-name=MongoDB Repository
-baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
-gpgcheck=0
-enabled=1
-EOF
-
-    #cp mongodb.repo /etc/yum.repos.d/mongodb.repo
-    sudo yum update -y
-    sudo yum install -y mongodb-org
-
-    if [ -d "/data/db" ]
-    then
-        echo "Directory is already available"
-    else
-        sudo mkdir -p /data/db
-    fi
-
-    sudo service mongod start
-
-    #Install Git and dependant packages
-    sudo yum install -y git gcc-c++ gcc-g++
-
-    #Install the Node, npm and npm modules
-    	cd /opt
-        wget https://nodejs.org/dist/v4.2.2/node-v4.2.2-linux-x64.tar.gz
-        tar zxvf node-v4.2.2-linux-x64.tar.gz
-        mv node-v4.2.2-linux-x64 node
-        ln -s /opt/node/bin/node /usr/bin/node
-        ln -s /opt/node/bin/npm /usr/bin/npm
-        sudo npm install -g npm@3.4.0
-        sudo npm install -g forever
-        sudo npm install -g kerberos
-
-    #Install the Chef-Client
-    sudo curl -L https://www.opscode.com/chef/install.sh | sudo bash
-
-    #Deploy The Catalyst
-    catalystdeploy
-    puppet
-    vmware
-
-fi
