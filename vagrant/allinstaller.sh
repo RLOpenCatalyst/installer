@@ -35,8 +35,8 @@ vmware() {
             sudo curl -sSL https://get.rvm.io | bash
             sudo source /home/ubuntu/.rvm/bin/rvm
             sudo /usr/local/rvm/bin/rvm install 2.1.4
+            sudo unlink /usr/bin/ruby
             sudo ln -s  /usr/local/rvm/rubies/ruby-2.1.4/bin/ruby /usr/bin/ruby
-            sudo /usr/local/rvm/bin/rvm use 2.1.4 --default
             sudo git clone https://github.com/RLOpenCatalyst/vmware /opt/vmware
             cd /opt/vmware
             sudo /usr/local/rvm/rubies/ruby-2.1.4/bin/gem install bundler
