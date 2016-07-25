@@ -2,7 +2,6 @@
 
 #Get the value from the Operating System
 echo "Get the value from the Operating System"
-echo "Mongo Host:"$1
 OS=$(awk '/DISTRIB_ID=/' /etc/*-release | sed 's/DISTRIB_ID=//' | tr '[:upper:]' '[:lower:]')
 PWD=$(pwd)
 sleep 2
