@@ -18,14 +18,14 @@ then
         echo $OS
 fi
 
-UID=$(id -u)
+UID1=$(id -u)
 USER=$(id -u -n)
 
 catalystdeploy()
 {
     #Install the Catalyst
     cd ~
-    if [ $UID -eq 0 ];
+    if [ $UID1 -eq 0 ];
     then
         git clone https://github.com/RLOpenCatalyst/core.git
         git checkout $BRANCH
@@ -56,7 +56,7 @@ catalystdeploy()
 }
 
 vmware() {
-        if [ $UID -eq 0 ];
+        if [ $UID1 -eq 0 ];
         then    
             gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
             curl -sSL https://get.rvm.io | bash
@@ -95,7 +95,7 @@ vmware() {
 }   
 
 nodejs() {
-        if [ $UID -eq 0 ];
+        if [ $UID1 -eq 0 ];
         then    
             cd /opt
             wget https://nodejs.org/dist/v4.4.4/node-v4.4.4-linux-x64.tar.gz
