@@ -3,8 +3,14 @@
 #Get the value from the Operating System
 echo "Get the value from the Operating System"
 echo "Mongo Host:"$1
+BRANCH=$2
+if [-z "${BRANCH}"]; then 
+    BRANCH = 'master'
+fi
+echo "Branch:" $2
 OS=$(awk '/DISTRIB_ID=/' /etc/*-release | sed 's/DISTRIB_ID=//' | tr '[:upper:]' '[:lower:]')
 PWD=$(pwd)
+
 sleep 2
 if [ -z "$OS" ];
 then
@@ -21,20 +27,22 @@ catalystdeploy()
     cd ~
     if [ $UID -eq 0 ];
     then
-        #git clone https://github.com/RLOpenCatalyst/core.git
-	git clone https://github.com/RLIndia/core.git
+        git clone https://github.com/RLOpenCatalyst/core.git
+        git checkout $BRANCH
+	    #git clone https://github.com/RLIndia/core.git
         mv core rlcatalyst
         cd rlcatalyst/client/cat3
         npm install --production
         npm run-script build-prod
         cd ../../server
         npm install
-	echo "install --seed-data --db-host "$1
+	    echo "install --seed-data --db-host "$1
         node install --seed-data  --db-host $1
         forever start app/app.js
     else
-        #sudo git clone https://github.com/RLOpenCatalyst/core.git
-	sudo git clone https://github.com/RLIndia/core.git
+        sudo git clone https://github.com/RLOpenCatalyst/core.git
+        sudo git checkout $BRANCH
+	    #sudo git clone https://github.com/RLIndia/core.git
         sudo mv core rlcatalyst
 	    cd rlcatalyst/client/cat3
         sudo npm install --production
