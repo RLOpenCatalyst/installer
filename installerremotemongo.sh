@@ -4,10 +4,10 @@
 echo "Get the value from the Operating System"
 echo "Mongo Host:"$1
 BRANCH=$2
-if [-z "${BRANCH}"]; then 
+if [ -z "$BRANCH"]; then 
     BRANCH = 'master'
 fi
-echo "Branch:" $2
+echo "Branch:" $BRANCH
 OS=$(awk '/DISTRIB_ID=/' /etc/*-release | sed 's/DISTRIB_ID=//' | tr '[:upper:]' '[:lower:]')
 PWD=$(pwd)
 
@@ -163,7 +163,7 @@ then
         echo "Installation of Catalyst has been Completed. please login to http://<vagrantip>/<hostip>:vagrantport/hostport"
 fi
 
-if [ "$OS" == "centos" ] || [ "$OS" == "redhat" ]
+if [ "$OS" == "centos" ] || [ "$OS" == "redhat" || "$OS" == "red" ]
 then
     sudo cat << EOF >> /etc/yum.repos.d/mongodb.repo
 [MongoDB]
