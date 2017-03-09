@@ -3,6 +3,7 @@
 #Get the value from the Operating System
 echo "Get the value from the Operating System"
 OS=$(awk '/DISTRIB_ID=/' /etc/*-release | sed 's/DISTRIB_ID=//' | tr '[:upper:]' '[:lower:]')
+CODENAME=$(sed -n 's/.*DISTRIB_CODENAME *= *\([^ ]*.*\)/\1/p' < /etc/lsb-release)
 PWD=$(pwd)
 sleep 2
 if [ -z "$OS" ];
@@ -21,7 +22,13 @@ catalystdeploy()
     if [ $UID -eq 0 ];
     then
         git clone https://github.com/RLOpenCatalyst/core.git
-        mv core rlcatalyst
+        #Check if rlcatalyst folder exists 
+        if [ -d rlcatalyst ]; 
+        then
+            mv core/* rlcatalyst
+        else
+            mv core rlcatalyst
+        fi
         cd rlcatalyst/client/cat3
         npm install --production
         npm run-script build-prod
@@ -31,7 +38,12 @@ catalystdeploy()
         forever start app/app.js
     else
         sudo git clone https://github.com/RLOpenCatalyst/core.git
-        sudo mv core rlcatalyst
+        if [ -d rlcatalyst ]; 
+        then
+            sudo mv core/* rlcatalyst/*
+        else
+            sudo mv core rlcatalyst
+        fi
 	    cd rlcatalyst/client/cat3
         sudo npm install --production
         sudo npm run-script build-prod
@@ -116,26 +128,39 @@ if [ "$OS" == "ubuntu" ] || [ "$OS" == "debian" ]
 then
         #Install the MongoDB
         mongo1=$(dpkg-query -l | grep mongodb-org | awk '{print $2}' | head -1)
-        if [ $mongo1 -eq "mongodb-org"];
+        if [ $mongo1 -eq "mongodb-org" ];
         then
                 echo "MongoDB is already installed..."
         else
 
                 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-                echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+                #checking if xenial then use a different repo
+                if [ "$CODENAME" == "xenial" ]
+                then
+                    echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+                else
+                    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+                fi
                 sudo apt-get update
                 sudo apt-get install -y mongodb-org
+                if [ "$CODENAME" == "xenial" ]
+                then
+                    sudo mkdir -p /data/db
+                    chmod +rw /data/db
+                    sudo mongod --fork --logpath /var/log/mongodb.log
+                fi
+
         fi
 
         #Install dependency packages
-        sudo apt-get install -y g++ make libkrb5-dev curl git
+        sudo apt-get install -y g++ make libkrb5-dev curl git wget python
 
         #Install the Nodejs
         nodejs
 
         #install chef-client
         chef1=$(dpkg-query -l | grep chef | awk '{print $2}'|head -1)
-        if [ "$chef1" == "chef"]
+        if [ "$chef1" == "chef" ]
         then
                 echo "Chef-Client has been installed"
         else
